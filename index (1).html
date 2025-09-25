@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tikare Gnana Sarika Bai - Technical Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+  :root {
+    --bg-color: #f4f6f8;
+    --text-color: #333;
+    --primary-color: #0073e6;
+    --header-bg: linear-gradient(to right, #0073e6, #00bfff);
+    --card-bg: white;
+    --progress-bg: #0073e6;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.5s ease;
+  }
+  a { text-decoration: none; color: var(--primary-color); transition: color 0.3s; }
+  h1,h2,h3 { margin-bottom: 0.5em; }
+  section { padding: 60px 20px; max-width: 1000px; margin: auto; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 50px 0; }
+
+  /* Dark Mode */
+  body.dark { --bg-color: #121212; --text-color: #e0e0e0; --primary-color: #00bfff; --header-bg: linear-gradient(to right, #0d47a1, #1976d2); --card-bg: #1e1e1e; --progress-bg: #00bfff; }
+
+  /* Sticky Navbar */
+  nav {
+    position: sticky; top: 0; background: var(--primary-color); color: white;
+    display: flex; justify-content: center; gap: 25px; padding: 15px 0; z-index: 1000;
+    font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background 0.5s;
+  }
+  nav a { color: white; transition: 0.3s; }
+  nav a.active { border-bottom: 2px solid #fff; }
+  nav a:hover { color: #e0f0ff; }
+
+  /* Header */
+  header { background: var(--header-bg); color: white; text-align: center; padding: 120px 20px; transition: background 0.5s; }
+  header h1 { font-size: 2.8em; margin-bottom: 10px; }
+  header p { font-size: 1.3em; margin-bottom: 20px; }
+  .btn { display: inline-block; margin: 10px 5px; padding: 12px 25px; background-color: white; color: var(--primary-color); font-weight: bold; border-radius: 6px; transition: 0.3s; cursor: pointer; }
+  .btn:hover { background-color: #e0f0ff; }
+
+  /* Dark Mode Toggle */
+  #dark-mode-toggle { position: fixed; top: 20px; right: 20px; background: var(--primary-color); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; z-index: 1500; transition: background 0.5s; }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 20px; }
+  .skill-card { background-color: var(--card-bg); padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; transition: all 0.3s; }
+  .skill-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+  .skill-card i { font-size: 2em; margin-bottom: 10px; color: var(--primary-color); }
+  .progress-bar { background: #ddd; height: 8px; border-radius: 4px; margin-top: 8px; overflow: hidden; }
+  .progress-bar div { background: var(--progress-bg); height: 100%; width: 0; border-radius: 4px; transition: width 1.5s; }
+
+  /* Certifications */
+  ul { list-style-type: square; padding-left: 20px; }
+
+  /* Projects */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 25px; }
+  .project-card { background-color: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: 0.3s; cursor: pointer; }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .project-card img { width: 100%; height: 180px; object-fit: cover; }
+  .project-card .content { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+  .project-card h3 { margin-top: 0; margin-bottom: 10px; color: var(--primary-color); }
+
+  /* Contact */
+  #contact a { display: inline-block; margin-right: 15px; }
+  form { display: flex; flex-direction: column; max-width: 500px; margin-top: 20px; }
+  form input, form textarea { padding: 10px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #ccc; }
+  form button { align-self: flex-start; }
+
+  /* Footer */
+  footer { text-align: center; padding: 30px; background-color: var(--primary-color); color: white; transition: background 0.5s; }
+
+  /* Modal */
+  .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
+  .modal-content { background-color: var(--card-bg); margin: 10% auto; padding: 20px; border-radius: 12px; max-width: 700px; position: relative; color: var(--text-color); transition: background 0.5s, color 0.5s; }
+  .close { position: absolute; right: 20px; top: 15px; font-size: 1.5em; cursor: pointer; }
+
+  /* Back to top */
+  #back-to-top { position: fixed; bottom: 25px; right: 25px; background: var(--primary-color); color: white; padding: 12px 15px; border-radius: 50%; font-size: 1.2em; display: none; cursor: pointer; transition: background 0.5s; }
+
+  /* Responsive */
+  @media(max-width:600px){ header h1 { font-size: 2.2em; } header p { font-size: 1.1em; } }
+</style>
+</head>
+<body>
+
+<!-- Dark Mode Toggle -->
+<button id="dark-mode-toggle">🌙 Dark Mode</button>
+
+<!-- Navbar -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- Header -->
+<header>
+  <h1>Tikare Gnana Sarika bai</h1>
+  <p>Python developer</p>
+  <a href="https://docs.google.com/document/d/1qDmsLO95bbDISx5WwqTvbykxzReS7za8/edit?usp=drive_link&ouid=103605424041035077739&rtpof=true&sd=true" class="btn"><i class="fas fa-download"></i> Download Resume</a>
+  <a href="#contact" class="btn"><i class="fas fa-envelope"></i> Contact Me</a>
+</header>
+
+<!-- About -->
+<section id="about">
+  <h2>About Me</h2>
+  <p> Seeking a challenging role as a Developer to utilize my expertise in python development , aiming to                    contribute to innovative projects and enhance the digital solutions of a forward-thinking company.
+</p>
+</section>
+<hr>
+
+<!-- Skills -->
+<section id="skills">
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <i class="fas fa-cloud"></i>
+      <h3>Cloud Platforms</h3>
+      <p>AWS, Oracle Cloud</p>
+      <div class="progress-bar"><div data-width="90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-code"></i>
+      <h3>Programming</h3>
+      <p>Python, Java, SQL, HTML/CSS, JavaScript</p>
+      <div class="progress-bar"><div data-width="85%"></div></div>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-robot"></i>
+      <h3>Developer tools</h3>
+      <p>Mysql, RDBMS, aws,  cloud computing, Pandas, NumPy</p>
+      <div class="progress-bar"><div data-width="80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-cogs"></i>
+      <h3>Relevant course work</h3>
+      <p> data structures, machine learning, big data , IOT, web development</p>
+      <div class="progress-bar"><div data-width="75%"></div></div>
+    </div>
+  </div>
+</section>
+<hr>
+
+<!-- Projects -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card" onclick="openModal('Biometric Attendence')">
+     
+      <div class="content">
+        <h3>Biometric Attendence</h3>
+        <p><strong>Tools:</strong> Python, face reconization lib, ai and ml algorithms</p>
+        <p><strong>Result:</strong> Attendence has been issued with the help of iris and finger print scan </p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openModal('Weather Forecast ')">
+     
+      <div class="content">
+        <h3>Weather Forecast </h3>
+        <p><strong>Tools:</strong> HTML, CSS, JavaScript</p>
+        <p><strong>Result:</strong> predicted weather forecast in real time  </p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openModal('Smart Helmet')">
+     
+      <div class="content">
+        <h3>Smart Helmet</h3>
+        <p><strong>Tools:</strong> Python, Pandas, aurdino uno, ir sensor, motion capture sensors, Matplotlib</p>
+        <p><strong>Result:</strong> prevented accidents with the help sensors</p>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+
+<!-- Contact -->
+<section id="contact">
+  <h2>Contact Me</h2>
+  <p>Email: <a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> gnanasarika@gmail.com</a></p>
+  <p>Phone: +91-7013278321</p>
+  <p>LinkedIn: <a href="#"><i class="fab fa-linkedin"></i> www.linkedin.com/in/gnana-sarika-baiVanity URL name</a></p>
+ 
+
+  <form>
+    <input type="text" placeholder="Name" required>
+    <input type="email" placeholder="Email" required>
+    <textarea placeholder="Message" rows="5" required></textarea>
+    <button type="submit" class="btn">Send Message</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>© 2025 Tikare Gnana Sarika bai | All Rights Reserved</footer>
+
+<!-- Back to Top -->
+<div id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="fas fa-arrow-up"></i></div>
+
+<!-- Modals -->
+<div id="Biometric Attendence" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="Biometric Attendence')">&times;</span>
+    <h3>Established a biometric attendance </h3>
+    <ul>
+      <li>this works through the face reconization sensors with the artificial intelligence</li>
+      <li>used machine learning and ai algorithms to scan iris.</li>
+      <li>attendance registered with an accuracy of 89%</li>
+    </ul>
+  </div>
+</div>
+<div id="Weather Forecast " class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('Weather Forecast ')">&times;</span>
+    <h3>Developed a weather forecast application</h3>
+    <ul>
+      <li>this takes user input for a specific region and provide real time weather data.</li>
+      <li>predicts real time weather forecast </li>
+      <li>predicted weather forecast with an accuracy of 70%</li>
+    </ul>
+  </div>
+</div>
+<div id="Smart Helmet" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('Smart Helmet')">&times;</span>
+    <h3> Developed iot device using aurdino uno</h3>
+    <ul>
+      <li>this  works through ir and motion capture sensors.</li>
+      <li>this helps to avoid accidents during night.</li>
+      <li>prevented accidents by 40%</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Dark mode toggle
+  const toggleBtn = document.getElementById('dark-mode-toggle');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    toggleBtn.textContent = document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
+  });
+
+  // Animate skill bars
+  window.addEventListener('scroll', () => {
+    document.querySelectorAll('.progress-bar div').forEach(bar => {
+      const top = bar.getBoundingClientRect().top;
+      if(top < window.innerHeight - 50){ bar.style.width = bar.getAttribute('data-width'); }
+    });
+
+    // Back-to-top button
+    const btn = document.getElementById('back-to-top');
+    btn.style.display = window.scrollY > 300 ? 'block' : 'none';
+
+    // Highlight nav links
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    sections.forEach((sec, i) => {
+      if(window.scrollY >= sec.offsetTop - 60 && window.scrollY < sec.offsetTop + sec.offsetHeight - 60){
+        navLinks.forEach(link => link.classList.remove('active'));
+        navLinks[i].classList.add('active');
+      }
+    });
+  });
+
+  // Modals
+  function openModal(id){ document.getElementById(id).style.display='block'; }
+  function closeModal(id){ document.getElementById(id).style.display='none'; }
+  window.onclick = function(event){
+    document.querySelectorAll('.modal').forEach(modal => { if(event.target == modal){ modal.style.display='none'; } });
+  }
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tikare Gnana Sarika Bai - Technical Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+  :root {
+    --bg-color: #f4f6f8;
+    --text-color: #333;
+    --primary-color: #0073e6;
+    --header-bg: linear-gradient(to right, #0073e6, #00bfff);
+    --card-bg: white;
+    --progress-bg: #0073e6;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    line-height: 1.6;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.5s ease;
+  }
+  a { text-decoration: none; color: var(--primary-color); transition: color 0.3s; }
+  h1,h2,h3 { margin-bottom: 0.5em; }
+  section { padding: 60px 20px; max-width: 1000px; margin: auto; }
+  hr { border: none; border-top: 1px solid #ddd; margin: 50px 0; }
+
+  /* Dark Mode */
+  body.dark { --bg-color: #121212; --text-color: #e0e0e0; --primary-color: #00bfff; --header-bg: linear-gradient(to right, #0d47a1, #1976d2); --card-bg: #1e1e1e; --progress-bg: #00bfff; }
+
+  /* Sticky Navbar */
+  nav {
+    position: sticky; top: 0; background: var(--primary-color); color: white;
+    display: flex; justify-content: center; gap: 25px; padding: 15px 0; z-index: 1000;
+    font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background 0.5s;
+  }
+  nav a { color: white; transition: 0.3s; }
+  nav a.active { border-bottom: 2px solid #fff; }
+  nav a:hover { color: #e0f0ff; }
+
+  /* Header */
+  header { background: var(--header-bg); color: white; text-align: center; padding: 120px 20px; transition: background 0.5s; }
+  header h1 { font-size: 2.8em; margin-bottom: 10px; }
+  header p { font-size: 1.3em; margin-bottom: 20px; }
+  .btn { display: inline-block; margin: 10px 5px; padding: 12px 25px; background-color: white; color: var(--primary-color); font-weight: bold; border-radius: 6px; transition: 0.3s; cursor: pointer; }
+  .btn:hover { background-color: #e0f0ff; }
+
+  /* Dark Mode Toggle */
+  #dark-mode-toggle { position: fixed; top: 20px; right: 20px; background: var(--primary-color); color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; z-index: 1500; transition: background 0.5s; }
+
+  /* Skills */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 20px; }
+  .skill-card { background-color: var(--card-bg); padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; transition: all 0.3s; }
+  .skill-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+  .skill-card i { font-size: 2em; margin-bottom: 10px; color: var(--primary-color); }
+  .progress-bar { background: #ddd; height: 8px; border-radius: 4px; margin-top: 8px; overflow: hidden; }
+  .progress-bar div { background: var(--progress-bg); height: 100%; width: 0; border-radius: 4px; transition: width 1.5s; }
+
+  /* Certifications */
+  ul { list-style-type: square; padding-left: 20px; }
+
+  /* Projects */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 25px; }
+  .project-card { background-color: var(--card-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; flex-direction: column; transition: 0.3s; cursor: pointer; }
+  .project-card:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+  .project-card img { width: 100%; height: 180px; object-fit: cover; }
+  .project-card .content { padding: 18px; flex: 1; display: flex; flex-direction: column; }
+  .project-card h3 { margin-top: 0; margin-bottom: 10px; color: var(--primary-color); }
+
+  /* Contact */
+  #contact a { display: inline-block; margin-right: 15px; }
+  form { display: flex; flex-direction: column; max-width: 500px; margin-top: 20px; }
+  form input, form textarea { padding: 10px; margin-bottom: 10px; border-radius: 6px; border: 1px solid #ccc; }
+  form button { align-self: flex-start; }
+
+  /* Footer */
+  footer { text-align: center; padding: 30px; background-color: var(--primary-color); color: white; transition: background 0.5s; }
+
+  /* Modal */
+  .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
+  .modal-content { background-color: var(--card-bg); margin: 10% auto; padding: 20px; border-radius: 12px; max-width: 700px; position: relative; color: var(--text-color); transition: background 0.5s, color 0.5s; }
+  .close { position: absolute; right: 20px; top: 15px; font-size: 1.5em; cursor: pointer; }
+
+  /* Back to top */
+  #back-to-top { position: fixed; bottom: 25px; right: 25px; background: var(--primary-color); color: white; padding: 12px 15px; border-radius: 50%; font-size: 1.2em; display: none; cursor: pointer; transition: background 0.5s; }
+
+  /* Responsive */
+  @media(max-width:600px){ header h1 { font-size: 2.2em; } header p { font-size: 1.1em; } }
+</style>
+</head>
+<body>
+
+<!-- Dark Mode Toggle -->
+<button id="dark-mode-toggle">🌙 Dark Mode</button>
+
+<!-- Navbar -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- Header -->
+<header>
+  <h1>Tikare Gnana Sarika bai</h1>
+  <p>Python developer</p>
+  <a href="https://docs.google.com/document/d/1qDmsLO95bbDISx5WwqTvbykxzReS7za8/edit?usp=drive_link&ouid=103605424041035077739&rtpof=true&sd=true" class="btn"><i class="fas fa-download"></i> Download Resume</a>
+  <a href="#contact" class="btn"><i class="fas fa-envelope"></i> Contact Me</a>
+</header>
+
+<!-- About -->
+<section id="about">
+  <h2>About Me</h2>
+  <p> Seeking a challenging role as a Developer to utilize my expertise in python development , aiming to                    contribute to innovative projects and enhance the digital solutions of a forward-thinking company.
+</p>
+</section>
+<hr>
+
+<!-- Skills -->
+<section id="skills">
+  <h2>Technical Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <i class="fas fa-cloud"></i>
+      <h3>Cloud Platforms</h3>
+      <p>AWS, Oracle Cloud</p>
+      <div class="progress-bar"><div data-width="90%"></div></div>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-code"></i>
+      <h3>Programming</h3>
+      <p>Python, Java, SQL, HTML/CSS, JavaScript</p>
+      <div class="progress-bar"><div data-width="85%"></div></div>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-robot"></i>
+      <h3>Developer tools</h3>
+      <p>Mysql, RDBMS, aws,  cloud computing, Pandas, NumPy</p>
+      <div class="progress-bar"><div data-width="80%"></div></div>
+    </div>
+    <div class="skill-card">
+      <i class="fas fa-cogs"></i>
+      <h3>Relevant course work</h3>
+      <p> data structures, machine learning, big data , IOT, web development</p>
+      <div class="progress-bar"><div data-width="75%"></div></div>
+    </div>
+  </div>
+</section>
+<hr>
+
+<!-- Projects -->
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card" onclick="openModal('Biometric Attendence')">
+     
+      <div class="content">
+        <h3>Biometric Attendence</h3>
+        <p><strong>Tools:</strong> Python, face reconization lib, ai and ml algorithms</p>
+        <p><strong>Result:</strong> Attendence has been issued with the help of iris and finger print scan </p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openModal('Weather Forecast ')">
+     
+      <div class="content">
+        <h3>Weather Forecast </h3>
+        <p><strong>Tools:</strong> HTML, CSS, JavaScript</p>
+        <p><strong>Result:</strong> predicted weather forecast in real time  </p>
+      </div>
+    </div>
+    <div class="project-card" onclick="openModal('Smart Helmet')">
+     
+      <div class="content">
+        <h3>Smart Helmet</h3>
+        <p><strong>Tools:</strong> Python, Pandas, aurdino uno, ir sensor, motion capture sensors, Matplotlib</p>
+        <p><strong>Result:</strong> prevented accidents with the help sensors</p>
+      </div>
+    </div>
+  </div>
+</section>
+<hr>
+
+<!-- Contact -->
+<section id="contact">
+  <h2>Contact Me</h2>
+  <p>Email: <a href="mailto:your.email@example.com"><i class="fas fa-envelope"></i> gnanasarika@gmail.com</a></p>
+  <p>Phone: +91-7013278321</p>
+  <p>LinkedIn: <a href="#"><i class="fab fa-linkedin"></i> www.linkedin.com/in/gnana-sarika-baiVanity URL name</a></p>
+ 
+
+  <form>
+    <input type="text" placeholder="Name" required>
+    <input type="email" placeholder="Email" required>
+    <textarea placeholder="Message" rows="5" required></textarea>
+    <button type="submit" class="btn">Send Message</button>
+  </form>
+</section>
+
+<!-- Footer -->
+<footer>© 2025 Tikare Gnana Sarika bai | All Rights Reserved</footer>
+
+<!-- Back to Top -->
+<div id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});"><i class="fas fa-arrow-up"></i></div>
+
+<!-- Modals -->
+<div id="Biometric Attendence" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="Biometric Attendence')">&times;</span>
+    <h3>Established a biometric attendance </h3>
+    <ul>
+      <li>this works through the face reconization sensors with the artificial intelligence</li>
+      <li>used machine learning and ai algorithms to scan iris.</li>
+      <li>attendance registered with an accuracy of 89%</li>
+    </ul>
+  </div>
+</div>
+<div id="Weather Forecast " class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('Weather Forecast ')">&times;</span>
+    <h3>Developed a weather forecast application</h3>
+    <ul>
+      <li>this takes user input for a specific region and provide real time weather data.</li>
+      <li>predicts real time weather forecast </li>
+      <li>predicted weather forecast with an accuracy of 70%</li>
+    </ul>
+  </div>
+</div>
+<div id="Smart Helmet" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('Smart Helmet')">&times;</span>
+    <h3> Developed iot device using aurdino uno</h3>
+    <ul>
+      <li>this  works through ir and motion capture sensors.</li>
+      <li>this helps to avoid accidents during night.</li>
+      <li>prevented accidents by 40%</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Dark mode toggle
+  const toggleBtn = document.getElementById('dark-mode-toggle');
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    toggleBtn.textContent = document.body.classList.contains('dark') ? '☀️ Light Mode' : '🌙 Dark Mode';
+  });
+
+  // Animate skill bars
+  window.addEventListener('scroll', () => {
+    document.querySelectorAll('.progress-bar div').forEach(bar => {
+      const top = bar.getBoundingClientRect().top;
+      if(top < window.innerHeight - 50){ bar.style.width = bar.getAttribute('data-width'); }
+    });
+
+    // Back-to-top button
+    const btn = document.getElementById('back-to-top');
+    btn.style.display = window.scrollY > 300 ? 'block' : 'none';
+
+    // Highlight nav links
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    sections.forEach((sec, i) => {
+      if(window.scrollY >= sec.offsetTop - 60 && window.scrollY < sec.offsetTop + sec.offsetHeight - 60){
+        navLinks.forEach(link => link.classList.remove('active'));
+        navLinks[i].classList.add('active');
+      }
+    });
+  });
+
+  // Modals
+  function openModal(id){ document.getElementById(id).style.display='block'; }
+  function closeModal(id){ document.getElementById(id).style.display='none'; }
+  window.onclick = function(event){
+    document.querySelectorAll('.modal').forEach(modal => { if(event.target == modal){ modal.style.display='none'; } });
+  }
+</script>
+
+</body>
+</html>
