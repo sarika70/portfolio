@@ -1,4 +1,4 @@
-# 🌐 Personal Portfolio Website
+#  Personal Portfolio Website
 
 **Tikare Gnana Sarika Bai**
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 🔍 About
+##  About
 
 This is my **personal portfolio website** designed to present:
 
@@ -19,7 +19,7 @@ It works as my **online resume and project showcase** for recruiters and compani
 
 ---
 
-## 🎯 Purpose
+##  Purpose
 
 The purpose of this portfolio is to:
 
@@ -29,7 +29,7 @@ The purpose of this portfolio is to:
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 * HTML
 * CSS
@@ -38,7 +38,7 @@ The purpose of this portfolio is to:
 
 ---
 
-## 📂 Website Sections
+##  Website Sections
 
 | Section  | Description                   |
 | -------- | ----------------------------- |
@@ -50,13 +50,13 @@ The purpose of this portfolio is to:
 
 ---
 
-## 🌍 Live Website
+##  Live Website
 
-🔗 **[https://sarika70.github.io/portfolio](https://sarika70.github.io/portfolio)**
+ **[https://sarika70.github.io/portfolio](https://sarika70.github.io/portfolio)**
 
 ---
 
-## 💼 Why This Portfolio Matters
+##  Why This Portfolio Matters
 
 This website helps me present myself as a **job-ready AI & ML professional** by:
 
@@ -66,7 +66,7 @@ This website helps me present myself as a **job-ready AI & ML professional** by:
 
 ---
 
-## 👩‍💻 Author
+##  Author
 
 **Tikare Gnana Sarika Bai**
 AI & Machine Learning Enthusiast
